@@ -80,8 +80,8 @@ QList<ExecutableInfo> GameEnderalSE::executables() const
   return {
     ExecutableInfo("Enderal Special Edition (SKSE)", findInGameFolder(feature<ScriptExtender>()->loaderName())),
     ExecutableInfo("Enderal Special Edition Launcher", findInGameFolder(getLauncherName())),
-    // ExecutableInfo("LOOT", QFileInfo(getLootPath())).withArgument("--game=\"Skyrim Special Edition\""),
-    ExecutableInfo("Creation Kit", findInGameFolder("CreationKit.exe"))
+    ExecutableInfo("Creation Kit", findInGameFolder("CreationKit.exe")).withSteamAppId("1946180"),
+    ExecutableInfo("LOOT", QFileInfo(getLootPath())).withArgument("--game=\"Enderal Special Edition\""),
   };
 }
 
@@ -250,7 +250,7 @@ QStringList GameEnderalSE::CCPlugins() const
 
 MOBase::IPluginGame::SortMechanism GameEnderalSE::sortMechanism() const
 {
-  return SortMechanism::NONE;
+  return SortMechanism::LOOT;
 }
 
 IPluginGame::LoadOrderMechanism GameEnderalSE::loadOrderMechanism() const
