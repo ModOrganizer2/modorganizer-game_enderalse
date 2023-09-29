@@ -65,16 +65,13 @@ QString GameEnderalSE::identifyGamePath() const
       {"Software\\GOG.com\\Games\\1708684988", "path"},
   };
   QString result;
-  try {
-    for (auto& path : paths.toStdMap()) {
-      result = findInRegistry(HKEY_LOCAL_MACHINE, path.first.toStdWString().c_str(),
-                              path.second.toStdWString().c_str());
-      if (!result.isEmpty())
-        break;
-    }
-  } catch (MOBase::MyException) {
-    result = MOBase::findSteamGame("Enderal Special Edition",
-                                   "Data\\Enderal - Forgotten Stories.esm");
+  for (auto& path : paths.toStdMap()) {
+    result = findInRegistry(HKEY_LOCAL_MACHINE, path.first.toStdWString().c_str(),
+                            path.second.toStdWString().c_str());
+    if (!result.isEmpty())
+      break;
+    if (result.isEmpty())
+      result = parseSteamLocation(steamAPPId(), gameName());
   }
   return result;
 }
